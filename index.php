@@ -1,12 +1,12 @@
 <?php 
 //index.php
-$connect = mysqli_connect("localhost", "root", "", "testing");
-$query = "SELECT * FROM account";
+$connect = mysqli_connect("localhost", "root", "", "morris");
+$query = "SELECT * FROM cuenta";
 $result = mysqli_query($connect, $query);
 $chart_data = '';
 while($row = mysqli_fetch_array($result))
 {
- $chart_data .= "{ year:'".$row["year"]."', profit:".$row["profit"].", purchase:".$row["purchase"].", sale:".$row["sale"]."}, ";
+ $chart_data .= "{ año:'".$row["año"]."', ganancia:".$row["ganancia"].", compra:".$row["compra"].", venta:".$row["venta"]."}, ";
 }
 $chart_data = substr($chart_data, 0, -2);
 ?>
@@ -14,7 +14,7 @@ $chart_data = substr($chart_data, 0, -2);
 <!DOCTYPE html>
 <html>
  <head>
-  <title>Webslesson Tutorial | How to use Morris.js chart with PHP & Mysql</title>
+  <title>Tutorial de Webslesson | Cómo usar el gráfico Morris.js con PHP y Mysql</title>
   <link rel="stylesheet" href="morrisLibs/morris.css">
   <script src="jqueryLibs/jquery-3.5.1.min.js"></script>
   <script src="raphaelLibs/raphael-min.js"></script>
@@ -24,21 +24,21 @@ $chart_data = substr($chart_data, 0, -2);
  <body>
   <br /><br />
   <div class="container" style="width:900px;">
-   <h2 align="center">Morris.js chart with PHP & Mysql</h2>
-   <h3 align="center">Last 10 Years Profit, Purchase and Sale Data</h3>   
+   <h2 align="center">Gráfico de Morris.js con PHP y Mysql</h2>
+   <h3 align="center">Datos de ganancias, compras y ventas de los últimos 10 años</h3>   
    <br /><br />
-   <div id="chart"></div>
+   <div id="gráfica_de_barras"></div>
   </div>
  </body>
 </html>
 
 <script>
 Morris.Bar({
- element : 'chart',
+ element : 'gráfica_de_barras',
  data:[<?php echo $chart_data; ?>],
- xkey:'year',
- ykeys:['profit', 'purchase', 'sale'],
- labels:['Profit', 'Purchase', 'Sale'],
+ xkey:'año',
+ ykeys:['ganancia', 'compra', 'venta'],
+ labels:['Ganancias', 'Compras', 'Ventas'],
  hideHover:'auto',
  stacked:true
 });
