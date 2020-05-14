@@ -1,16 +1,3 @@
-<?php 
-//index.php
-$connect = mysqli_connect("localhost", "root", "", "morris");
-$query = "SELECT * FROM cuenta";
-$result = mysqli_query($connect, $query);
-$chart_data = '';
-while($row = mysqli_fetch_array($result))
-{
- $chart_data .= "{ año:'".$row["año"]."', ganancia:".$row["ganancia"].", compra:".$row["compra"].", venta:".$row["venta"]."}, ";
-}
-$chart_data = substr($chart_data, 0, -2);
-?>
-
 <!DOCTYPE html>
 <html>
  <head>
@@ -27,19 +14,13 @@ $chart_data = substr($chart_data, 0, -2);
    <h2 align="center">Gráfico de Morris.js con PHP y Mysql</h2>
    <h3 align="center">Datos de ganancias, compras y ventas de los últimos 10 años</h3>   
    <br /><br />
-   <div id="gráfica_de_barras"></div>
+   <div id="carga_grafica_Bar"></div>
   </div>
  </body>
 </html>
-
 <script>
-Morris.Bar({
- element : 'gráfica_de_barras',
- data:[<?php echo $chart_data; ?>],
- xkey:'año',
- ykeys:['ganancia', 'compra', 'venta'],
- labels:['Ganancias', 'Compras', 'Ventas'],
- hideHover:'auto',
- stacked:true
-});
+        $(document).ready(function(){
+        $('#carga_grafica_Bar').load('graphbar.php');
+        //$('#loadarea').load('area.php');
+    });
 </script>
